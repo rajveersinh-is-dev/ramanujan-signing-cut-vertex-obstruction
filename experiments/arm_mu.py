@@ -13,18 +13,17 @@ is the largest mean-zero Rayleigh quotient of H.
 """
 from __future__ import annotations
 
-import itertools
 import sys
 
 import numpy as np
 
 sys.path.insert(0, "src")
-from signings.core import adjacency_matrix, spectrum  # noqa: E402
+from signings.core import adjacency_matrix
 
 RHO3 = 2 * np.sqrt(2)
 
 
-def mu(n, edges):
+def mu(n, edges) -> tuple:
     """max of u'A u /||u||^2 over u != 0 with sum u = 0."""
     A = adjacency_matrix(n, edges).astype(float)
     n = A.shape[0]
@@ -67,6 +66,9 @@ def all_arms_upto(order):
 
 
 def main():
+    """Entry point — parse arguments and run the main computation.
+    
+    """
     print(f"2*sqrt(2) = {RHO3:.9f}\n")
     for n in (5, 7, 9):
         arms = all_arms_upto(n)
