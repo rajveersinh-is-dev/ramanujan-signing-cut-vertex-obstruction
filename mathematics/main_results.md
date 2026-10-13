@@ -46,10 +46,12 @@ $$
 \tag{6}
 $$
 
-**Corollary 2.** Every connected Ramanujan cubic graph is 2-connected; in
-particular $G-z$ being empty of cut vertices forces any cut vertex of $G$ to
-split $G$ into three arms of orders $\ge5$ with at least two of them equal to $5$
-(the only configuration not excluded by (5) alone).
+**Corollary 2.** Every connected Ramanujan cubic graph is 2-connected.
+
+*(For orientation: Corollary 1 alone says that a cubic graph with a cut vertex
+must have its two smallest arms both of order $5$ to have any chance of being
+Ramanujan at all; Theorem 3 then kills that family as well. So no configuration
+with a cut vertex survives.)*
 
 **Why this matters.** The conjecture under study (Conjecture R below) asserts
 that Ramanujan graphs admit Ramanujan signings.  Theorem 2 shows that for

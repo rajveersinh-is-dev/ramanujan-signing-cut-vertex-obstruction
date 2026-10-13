@@ -129,18 +129,22 @@ that $x(t_i)=c_i^x+d_i^x$.
    x^{\mathsf T}A(G)y\big|_{C_i}
    =\sum_{u\in C_i}x(u)\!\!\sum_{\substack{v\in C_i\\ v\sim u}}\!\!y(v).
    $$
-   Group the inner sum by its second index $v\ne t_i$: each such $v$ is
-   adjacent to $d(v)=3$ vertices of $C_i$, of which at most one is $t_i$; since
-   $t_i$ is a single vertex, for $v\ne t_i$ the contribution to
-   $\sum_u x(u)[\ldots]$ is $c^x\,(3\,y(v))$ unless $t_i\sim v$, in which case
-   the value $x(t_i)$ replaces $c^x$ once, contributing $d^x y(v)$.  Summing:
-   $c^x\cdot 3\sum_{v\ne t_i}y(v)+\big(\sum_{v\sim t_i,\,v\ne t_i}y(v)\big)d^x
-   =3(n_i-1)c^xc^y+2d^xc^y$, where the factor $2$ is the degree of $t_i$
-   inside $C_i$.  Finally the pair $\{t_i,u\}$ is counted a second time (once
-   from $u$, once from $t_i$), adding $y(t_i)\sum_{u\sim t_i,\,u\ne t_i}x(u)
-   =2(c^y+d^y)c^x$.  Hence
+   Group the double sum by its second index $v\neq t_i$.  Because $x$ equals
+   $c^x$ on $C_i\setminus\{t_i\}$ and $c^x+d^x$ at $t_i$, we get
    $$
-   x^{\mathsf T}A(G)y\big|_{C_i}=3(n_i-1)c^xc^y+2d^xc^y+2c^x(c^y+d^y).
+   x^{\mathsf T}A(G)y\big|_{C_i}
+   =c^x\sum_{v\neq t_i}\ \sum_{\substack{u\in C_i\\ u\sim v}}\!y(v)
+    +d^x\sum_{v\sim t_i,\,v\neq t_i}\!y(v),
+   $$
+   the double sum running over ordered adjacent pairs $(u,v)$ of $C_i$.  Every
+   $v\neq t_i$ has exactly $3$ neighbours in $C_i$ and $t_i$ has exactly $2$, so
+   $$
+   \sum_{v\neq t_i}\sum_{u\sim v}y(v)=3\sum_{v\neq t_i}y(v)=3(n_i-1)c^y,
+   \qquad \sum_{v\sim t_i,\,v\neq t_i}y(v)=2c^y,
+   $$
+   and therefore
+   $$
+   x^{\mathsf T}A(G)y\big|_{C_i}=3(n_i-1)c^xc^y+2d^xc^y .
    \tag{*}
    $$
 
@@ -178,10 +182,12 @@ $$
 so for every integer $\ell\ge7$ it is positive, hence the minor in (**) is
 negative.  A symmetric $2\times2$ matrix with negative determinant is
 indefinite, so this principal submatrix of $D_\ell$ admits a vector $a\ne0$ with
-$a^{\mathsf T}D_\ell a>0$; for such an $a$,
+$a^{\mathsf T}D_\ell a>0$.  Also $K_\ell$ is a Gram matrix of the four linearly
+independent vectors $P,Q,R,S$ --- $Q$ and $S$ vanish at $z$ and are supported on
+disjoint arm sets, while $P$ and $R$ carry the $z$-coordinate of opposite sign
+and on disjoint arms --- so $a^{\mathsf T}K_\ell a>0$ and the quotient is
+defined.  Hence
 $$
-a^{\mathsf T}M_\ell a>2\sqrt2\,a^{\mathsf T}K_\ell a
-\ \Longrightarrow\ 
 \frac{a^{\mathsf T}M_\ell a}{a^{\mathsf T}K_\ell a}>2\sqrt2 ,
 $$
 so $\lambda_{\max}(M_\ell,K_\ell)>2\sqrt2$ and $\lambda_2(A(G))>2\sqrt2$.
