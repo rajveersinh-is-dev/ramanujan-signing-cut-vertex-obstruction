@@ -1,0 +1,381 @@
+\documentclass[11pt,a4paper]{article}
+
+\usepackage[margin=2.6cm]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{graphicx}
+\usepackage[colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue]{hyperref}
+\usepackage{microtype}
+\usepackage{enumitem}
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{lemma}[theorem]{Lemma}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{remark}[theorem]{Remark}
+\newcommand{\sgn}{\sigma}
+\newcommand{\norm}[1]{\left\lVert #1\right\rVert}
+\newcommand{\lamii}{\lambda_{2}}
+\newcommand{\rhoD}{\rho_{d}}
+\newcommand{\bdG}{A(G)}
+\newcommand{\bdAs}{A_{\sgn}(G)}
+\newcommand{\bbE}{\mathbb{E}}
+\newcommand{\bbR}{\mathbb{R}}
+\newcommand{\bbQ}{\mathbb{Q}}
+\newcommand{\ind}{\mathbf 1}
+
+\title{\bf Ramanujan signing of regular graphs:\\
+a structural obstruction for cubic graphs\\[2mm]
+\large and the precise remaining gap}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+A \emph{signing} of a graph $G$ is a map $\sgn\colon E(G)\to\{\pm1\}$; write
+$A_{\sgn}(G)$ for the resulting signed adjacency matrix and
+$\beta(G)=\min_{\sgn}\norm{A_{\sgn}(G)}_{\mathrm{op}}$; put
+$\rho_d=2\sqrt{d-1}$. Bilu and Linial conjectured in 2006 that every finite
+simple $d$-regular graph satisfies $\beta(G)\le\rho_d$. That conjecture is
+false: Xu (2026) constructed a cubic graph with $\beta(G)>2\sqrt2$, and left
+open the natural refinement: does every connected regular \emph{Ramanujan}
+graph admit a signing whose whole spectrum lies in
+$[-\rho_d,\rho_d]$? We attack the cubic case. We prove a two-arm bottleneck
+bound for cubic graphs at a cut vertex, use it to obtain
+$\lambda_2\ge 20/7>2\sqrt2$ whenever two of the three components of $G-z$ have
+order at least $7$, and settle the remaining family of arm orders $(5,5,\ell)$
+by an exact $4\times4$ pencil analysis on a four-dimensional test space.
+The outcome is:
+
+\medskip\noindent
+\textbf{Theorem A.} Every connected cubic graph with a cut vertex satisfies
+$\lambda_2(\bdG)>2\sqrt2$. In particular every connected Ramanujan cubic graph is
+2-connected.
+
+We also record, and correct, two errors that arose during the investigation: that
+vertex sums are invariant under vertex switching, and that
+$\max_v|\sgn(v)|$ bounds $\norm{A_{\sgn}(G)}_{\mathrm{op}}$. Neither is true, the
+second is refuted by $K_4$. The conjectures themselves remain open.
+\end{abstract}
+
+\section{Introduction}
+
+Let $G$ be a finite simple undirected graph, $A(G)$ its $0/1$ adjacency
+matrix, and $\mathbf 1$ the all-ones vector. A \emph{signing} is a map
+$\sgn\colon E(G)\to\{\pm1\}$; the \emph{signed adjacency matrix} $A_{\sgn}(G)$
+has entries $\pm1$ on $E(G)$ and $0$ elsewhere. Set
+\[
+  \beta(G)=\min_{\sgn}\norm{A_{\sgn}(G)}_{\mathrm{op}},\qquad
+  \rho_d=2\sqrt{d-1}\quad (d\text{-regular } G).
+\]
+Vertex switching $\sgn\mapsto(\delta_u\sgn(\{u,v\})\delta_v)$ gives
+$A_{\delta\sgn}=DA_{\sgn}D$, so the spectrum of $A_{\sgn}$ is a switching
+invariant; the orbit of a signing has size $2^{n-1}$, and a set of
+representatives for a connected graph on $n$ vertices with $m$ edges is obtained
+by switching along a spanning tree, giving exactly $2^{m-n+1}$ classes. In
+particular $\beta$ is exactly computable for cubic graphs on $n\lesssim20$
+vertices.
+
+Bilu and Linial \cite{bl06} asked whether $\beta(G)\le\rho_d$ always holds.
+Marcus, Spielman and Srivastava \cite{mss15} proved the \emph{one-sided} bound
+$\min_{\sgn}\lambda_{\max}(A_{\sgn})\le\rho_d$ for every $d$-regular graph,
+which settles Bilu--Linial only for bipartite $G$ (where the signed spectrum is
+symmetric). Recently Xu \cite{xu26} constructed a cubic graph for which every
+signing has an eigenvalue outside $[-2\sqrt2,2\sqrt2]$, disproving the original
+conjecture, and stated as an open question:
+
+\begin{definition}[Ramanujan signing, conjectural \cite{xu26}]
+A $d$-regular graph $G$ is \emph{Ramanujan} if every eigenvalue of $\bdG$ other
+than the trivial ones lies in $[-\rho_d,\rho_d]$. \textbf{Conjecture R}: if $G$
+is a connected Ramanujan graph then $\beta(G)\le\rho_d$.
+\end{definition}
+
+We consider the cubic case,
+\begin{quote}\textbf{Conjecture R3.} If $G$ is connected and cubic with
+$\lambda_2(\bdG)\le2\sqrt2$ then $\beta(G)\le2\sqrt2$.\end{quote}
+
+Xu's counterexample is assembled around a cut vertex: its core graph $J$ has a
+central vertex whose removal leaves three very large components. This suggests
+asking whether a cut-vertex bottleneck can obstruct Ramanujan signing. The
+answer is no, in a provable way.
+
+\section{Setup at a cut vertex}
+
+Throughout this section $G$ is connected and cubic and $z\in V(G)$ is a cut
+vertex; write
+\[
+  G-z=C_1\;\dot\cup\;C_2\;\dot\cup\;C_3,\qquad n_i=|C_i|,\quad n_1\le n_2\le n_3,
+\]
+and let $t_i$ be the unique vertex of $C_i$ adjacent to $z$.
+
+\begin{lemma}
+$G-z$ has exactly three components, each of odd order at least $5$, each joined
+to $z$ by exactly one edge. Moreover $2|E(C_i)|=3n_i-1$.
+\end{lemma}
+
+\begin{proof}
+Every component of $G-z$ contains a neighbour of $z$, since otherwise $G$ is
+disconnected. As $\deg(z)=3$ and the components partition the neighbours of $z$,
+there are exactly three components and each is attached to $z$ by one edge.
+Summing degrees over $C_i$ gives $3n_i=2|E(C_i)|+1$, so $n_i$ is odd and
+$|E(C_i)|=(3n_i-1)/2$. As $C_i$ is simple,
+$\tfrac{3n_i-1}{2}\le\tfrac{n_i(n_i-1)}{2}$, i.e.\ $n_i^2-4n_i+1\ge0$, whence
+$n_i\ge4$ (the roots are $2\pm\sqrt3$); oddness gives $n_i\ge5$.
+\end{proof}
+
+Two families of vectors orthogonal to $\mathbf 1$ will be used:
+\[
+  p_i=\ind_{C_i}-n_i e_z,\qquad
+  q_i=e_{t_i}-\tfrac1{n_i}\ind_{C_i}.
+\tag{2.1}
+\]
+Indeed $\langle p_i,\mathbf 1\rangle=n_i-n_i=0$ and
+$\langle q_i,\mathbf 1\rangle=1-\frac1{n_i}n_i=0$.
+
+\section{The bottleneck bound}
+
+Since $G$ is connected, $\mathbf 1$ spans the top eigenspace of $\bdG$ and
+\[
+  \lambda_2(\bdG)=\max\Big\{\tfrac{x^{\mathsf T}\bdG x}{x^{\mathsf T}x}:
+  0\neq x\perp\mathbf 1\Big\}.
+\tag{3.1}
+\]
+
+\begin{theorem}[two-arm bottleneck bound]
+$\lambda_2(\bdG)\ge\max_{i<j}\left(3-\dfrac{n_i^2+n_j^2}{n_in_j(n_i+n_j)}\right)$,
+and in particular $\lambda_2(\bdG)\ge\max_{i<j}\left(3-\dfrac1{\max(n_i,n_j)}\right)$.
+\end{theorem}
+
+\begin{proof}
+Fix two components with orders $a=n_i$, $b=n_j$ and set
+$x=\tfrac1a\ind_{C_i}-\tfrac1b\ind_{C_j}$. Then $\langle x,\mathbf 1\rangle=0$
+and, because $C_i,C_j$ are disjoint and $x$ vanishes elsewhere,
+\[
+  \norm{x}^{2}=\tfrac1a+\tfrac1b.
+\]
+There are no edges between $C_i$ and $C_j$, and all edges leaving them go to $z$
+where $x_z=0$; using $2|E(C_k)|=3n_k-1$,
+\[
+  x^{\mathsf T}\bdG x=\frac{3a-1}{a^2}+\frac{3b-1}{b^2}.
+\]
+Putting numerator over $a^2b^2$ and denominator over $ab$,
+\[
+  \frac{x^{\mathsf T}\bdG x}{\norm{x}^{2}}
+  =\frac{b^2(3a-1)+a^2(3b-1)}{ab(a+b)}
+  =\frac{3ab^{2}-b^{2}+3a^{2}b-a^{2}}{ab(a+b)}
+  =3-\frac{a^{2}+b^{2}}{ab(a+b)},
+\]
+the last step being the identity
+$3ab^{2}+3a^{2}b-a^{2}-b^{2}=3ab(a+b)-(a^{2}+b^{2})$. By (3.1) this
+quotient is at most $\lambda_2(\bdG)$; maximising over the three pairs gives the
+claim. Finally, writing $t=a/b\in(0,1]$,
+$\frac{a^2+b^2}{ab(a+b)}=\frac1a\cdot\frac{t+1/t}{1+t}\le\frac1a$ because
+$\frac{t+1/t}{1+t}\le1\iff\frac1t\le1$.
+\end{proof}
+
+\begin{corollary}
+If at least two of $n_1,n_2,n_3$ are at least $7$, then
+$\lambda_2(\bdG)\ge\frac{20}{7}>2\sqrt2$.
+\end{corollary}
+
+\begin{proof}
+Apply the theorem to those two arms; the smaller order $a\ge7$ gives
+$\lambda_2\ge3-\frac1a\ge3-\frac17=\frac{20}{7}$, and
+$\frac{400}{49}>8$.
+\end{proof}
+
+Thus only the configuration $n_1=n_2=5$ (so $n_3=\ell$ odd, $\ge5$) survives.
+
+\section{The residual family $(5,5,\ell)$}
+
+Consider the four-dimensional space
+\[
+  W=\operatorname{span}\{P,Q,R,S\},\quad
+  P=p_1+p_2,\quad Q=q_1+q_2,\quad R=p_3,\quad S=q_3,
+\]
+contained in $\mathbf 1^\perp$ by (2.1). Hence
+$\lambda_2(\bdG)\ge\lambda_{\max}(M_\ell,K_\ell)$ where
+$M_\ell=p^{\mathsf T}\bdG p$, $K_\ell=p^{\mathsf T}p$.
+
+We derive the pencil from three combinatorial identities. Write a vector as
+value $c_i$ on $C_i\setminus\{t_i\}$, value $c_i+d_i$ at $t_i$, and value
+$z_x$ at $z$. Then
+\begin{enumerate}[leftmargin=2em,itemsep=2pt]
+\item[(i)] On one arm,
+$\sum_{u\in C_i}x(u)y(u)=(n_i-1)c^xc^y+(c^x+d^x)(c^y+d^y)$.
+\item[(ii)] Arm-internal adjacency form. Since every vertex of $C_i$ except
+$t_i$ has degree $3$ inside $C_i$ and $t_i$ has degree $2$,
+$x^{\mathsf T}\bdG y|_{C_i}=\sum_{u\in C_i}x(u)\sum_{v\in C_i,\,v\sim u}y(v)$.
+Grouping by $v\neq t_i$ gives $3c^x\sum_{v\neq t_i}y(v)$ except that for
+$v\sim t_i$ the value $x(t_i)$ replaces $c^x$ once, contributing $d^xy(v)$;
+the pair $\{t_i,u\}$ is then counted twice, the second time contributing
+$y(t_i)\sum_{u\sim t_i,\,u\neq t_i}x(u)=2(c^y+d^y)c^x$. Hence
+\[
+   x^{\mathsf T}\bdG y|_{C_i}=3(n_i-1)c^xc^y+2d^xc^y+2c^x(c^y+d^y).
+\]
+\item[(iii)] Each of the three edges $zt_i$ contributes
+$z_x\,y(t_i)+x(t_i)\,z_y$.
+\end{enumerate}
+
+Substituting $n_1=n_2=5$, $n_3=\ell$ yields
+\[
+ M_\ell=\begin{pmatrix}
+ -12 & -\tfrac{88}{5} & -2\ell-10 & -10+\tfrac{10}{\ell}\\
+ -\tfrac{88}{5} & -\tfrac{12}{25} & -\tfrac{8\ell}{5} & 0\\
+ -2\ell-10 & -\tfrac{8\ell}{5} & \ell-1 & -\ell+\tfrac1\ell\\
+ -10+\tfrac{10}{\ell} & 0 & -\ell+\tfrac1\ell & -\tfrac1\ell-\tfrac1{\ell^2}
+ \end{pmatrix},\quad
+ K_\ell=\begin{pmatrix}
+ 110 & 0 & 10\ell & 0\\
+ 0 & \tfrac85 & 0 & 0\\
+ 10\ell & 0 & \ell^2+\ell & 0\\
+ 0 & 0 & 0 & 1-\tfrac1\ell
+ \end{pmatrix}.
+\]
+Note that the pencil depends only on the arm orders, not on the internal
+structure of the arms, so the bound is uniform. This computation is
+machine-checked against matrices built from explicit coordinate vectors on
+concrete three-arm graphs.
+
+Let $D_\ell=M_\ell-2\sqrt2\,K_\ell$. The principal minor of $D_\ell$ on the
+pair $(P,R)$ is
+\[
+  \det D_\ell[\{P,R\}]
+  =-4(\ell+11)\Big((14\sqrt2-19)\ell-5\sqrt2+2\Big).
+\tag{5.1}
+\]
+Since $14\sqrt2-19>0$ and
+$\frac{5\sqrt2-2}{14\sqrt2-19}=\frac{67\sqrt2+102}{31}\approx6.347$, the minor
+is negative for every integer $\ell\ge7$. A symmetric $2\times2$ matrix with
+negative determinant is indefinite, so $D_\ell$ admits a direction $a$ with
+$a^{\mathsf T}D_\ell a>0$, i.e.\ $a^{\mathsf T}M_\ell a>2\sqrt2\,a^{\mathsf T}K_\ell a$,
+and $a^{\mathsf T}K_\ell a>0$ because $K_\ell$ is a Gram matrix of linearly
+independent vectors. Hence $\lambda_{\max}(M_\ell,K_\ell)>2\sqrt2$ for all
+$\ell\ge7$.
+
+For $\ell=5$ take the rational vector
+$a=(-\tfrac35,\tfrac15,\tfrac65,-\tfrac25)^{\mathsf T}$ in the basis
+$(P,Q,R,S)$. Direct substitution gives
+\[
+  a^{\mathsf T}M_5a-2\sqrt2\,a^{\mathsf T}K_5a
+  =\frac{19584-13740\sqrt2}{625}>0,
+\]
+because $19584^2-2\cdot13740^2=6\,017\,856>0$ and $19584>0$.
+
+\section{Main theorem}
+
+\begin{theorem}
+Every connected cubic graph with a cut vertex satisfies
+$\lambda_2(\bdG)>2\sqrt2$.
+\end{theorem}
+
+\begin{proof}
+If $n_2\ge7$, Corollary 1 applies. Otherwise $n_1=n_2=5$ and $n_3=\ell\ge5$ is
+odd, and Section 4 applies ($\ell\ge7$ or $\ell=5$).
+\end{proof}
+
+\begin{corollary}
+Every connected Ramanujan cubic graph is 2-connected.
+\end{proof}
+By Theorem A, a connected cubic graph with a cut vertex has a non-trivial
+eigenvalue of modulus $>2\sqrt2=\rho_3$, so it is not Ramanujan. For a
+connected graph the top eigenspace of $\bdG$ is $\operatorname{span}\{\mathbf 1\}$,
+so the second largest eigenvalue is non-trivial.
+\end{proof}
+
+\section{Computational evidence}
+
+Tables produced by \texttt{experiments/run\_all\_experiments.py}; $\beta(G)$ is
+exact (all $2^{n/2+1}$ switching classes are enumerated).
+
+\begin{center}
+\small
+\begin{tabular}{lrrrr}
+\toprule
+$G$ & $n$ & $\lambda_2(\bdG)$ & Ramanujan & $\beta(G)$\\
+\midrule
+$K_4$ & 4 & $-1.000000$ & yes & $2.236068$\\
+$K_{3,3}$ & 6 & $0.000000$ & yes & $2.000000$\\
+triangular prism $C_3\times K_2$ & 6 & $1.000000$ & yes & $2.236068$\\
+cube $C_4\times K_2$ & 8 & $1.000000$ & yes & $1.732051$\\
+pentagonal prism & 10 & $1.618034$ & yes & $2.236068$\\
+hexagonal prism & 12 & $2.000000$ & yes & $2.000000$\\
+Heawood & 14 & $1.414214$ & yes & $2.449490$\\
+Möbius--Kantor $GP(8,3)$ & 16 & $1.732051$ & yes & $2.414214$\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+All eight satisfy $\beta\le2\sqrt2$, as Conjecture R3 predicts. Eight graphs
+are evidence, not a proof.
+
+\section{Discussion, limitations, open questions}
+
+\subsection*{Two claims made and withdrawn during this work}
+
+\emph{(i) Vertex sums are not switching-invariant.} It is true that
+$A_{\delta\sgn}=DA_{\sgn}D$, hence the spectrum is preserved, but
+$A_{\sgn}\mathbf 1=(v\mapsto\sgn(v))$ gives
+$A_{\delta\sgn}\mathbf 1=DA_{\sgn}(\delta\mathbf 1)$, whose $v$-th entry is
+$\delta(v)\sum_{w\sim v}\sgn(\{v,w\})\delta(w)$, generally not $\pm\sgn(v)$.
+On $C_4$ with $\sgn\equiv+1$ (all vertex sums $+1$), switching by
+$\delta=(1,1,-1,-1)$ gives all vertex sums $0$.
+
+\emph{(ii) $\max_v|\sgn(v)|$ does not bound $\norm{A_{\sgn}}_{\mathrm{op}}$.}
+For $K_4$ with $\sgn(\{1,2\})=\sgn(\{3,4\})=-1$ all vertex sums are $\pm1$
+while the eigenvalues of $A_{\sgn}$ are $3,-3,1,1$, so the norm is $3$. The
+true optimum is $\beta(K_4)=\sqrt5$, attained by signings with larger vertex
+sums. Consequently signings coming from perfect matchings --- the natural first
+idea --- give no bound at all.
+
+Both errors were caught by an explicit cross-check against concrete graphs and
+are documented in the repository's research log.
+
+\subsection*{Limitations}
+
+Theorem A rules out cut vertices but says nothing about 2-vertex cuts, small
+bridges, or finite bottlenecks. The case $d\ge4$ is untouched. The bottleneck
+estimate itself is an elementary instance of the classical Cheeger-type
+argument; what is proved here is the precise statement and its use in the
+residual case. We do not claim historical priority for Theorem A.
+
+\subsection*{Open questions}
+
+\begin{enumerate}[leftmargin=2em]
+\item Do Ramanujan cubic graphs admit signings with
+$\norm{A_{\sgn}}\le2\sqrt2$ (Conjecture R3)?
+\item Is every $3$-connected cubic graph $2$-realisable, i.e.\ $\beta(G)\le2\sqrt2$?
+\item What is the smallest cubic graph with $\beta(G)>2\sqrt2$? Xu's example has
+astronomically many vertices; exhaustive search is cheap with the switching-class
+machinery (there are only $4060$ connected cubic graphs on $16$ vertices and
+$2^9$ switching classes each).
+\item Is the bound $3-\frac{a^2+b^2}{ab(a+b)}$ of Theorem 1 attained, and for
+which $(a,b)$?
+\end{enumerate}
+
+\begin{thebibliography}{9}
+\bibitem{bl06} Y.~Bilu and N.~Linial. Lifts, discrepancy and nearly optimal
+spectral gap. \emph{Combinatorica} 26 (2006) 495--519.
+
+\bibitem{xu26} Z.~Xu. A 3-regular counterexample to the Bilu--Linial signing
+conjecture. arXiv:2609.15591v4 (2026).
+
+\bibitem{mss15} A.~W.~Marcus, D.~A.~Spielman and N.~Srivastava. Interlacing
+families I: bipartite Ramanujan graphs of all degrees. \emph{Annals of
+Mathematics} 182 (2015) 307--325.
+
+\bibitem{rs21} N.~Ravichandran and N.~Srivastava. Asymptotically optimal
+multi-paving. \emph{IMRN} 2021, 10908--10940.
+
+\bibitem{hps18} R.~Hall, D.~Puder and M.~Sawin. Ramanujan coverings of graphs.
+\emph{Advances in Mathematics} 323 (2018) 367--397.
+
+\bibitem{lz26} F.~Lin and H.~Zhou. Improved bounds for the Bilu--Linial
+conjecture via spectral recovery from mixed determinantal polynomials.
+arXiv:2609.15715 (2026).
+\end{thebibliography}
+
+\end{document}
