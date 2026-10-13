@@ -56,8 +56,23 @@ all lie in the Ramanujan interval?"
 | Lin and Zhou, arXiv:2609.15715 (2026) | $\beta(G)<\tfrac{3+\sqrt5}{2}\sqrt{d-1}$ for all $d$-regular $G$ |
 | Xu, Xu and Zhu, *Improved bounds in Weaver's $\mathrm{KS}_r$ conjecture*, J. Funct. Anal. **285** (2023) 109978 | higher-rank interlacing families |
 
-**Classfication: the Bilu--Linial conjecture is FALSE (disproved 2026-09).
+**Status: the Bilu--Linial conjecture is FALSE (disproved 2026-09).
 Conjecture R (Ramanujan signing) is OPEN as of 2026-10-13.**
+
+**Priority check (re-run 2026-10-13).**  The arXiv API query `all:"Bilu-Linial"`
+returns 14 entries, all inspected.  The most recent are
+
+| arXiv | Date | Title | Bears on Conjecture R? |
+|---|---|---|---|
+| 2609.23855 | 2026-09-20 | *Kadison--Singer partitions and Bilu--Linial graph signings in polynomial time* | no --- algorithmic |
+| 2609.15715 | 2026-09-14 | *Improved bounds ... via spectral recovery* (Lin--Zhou) | no --- weaker upper bound |
+| 2609.15591 | 2026-09-14, v4 09-29 | *A 3-regular counterexample ...* (Xu) | **states Conjecture R as open** |
+| 2609.17551 | 2026-07-16 | *A $\sqrt2$-approximation to the Bilu--Linial conjecture* (Huang) | no --- weaker upper bound |
+| 2606.28797 | 2026-06-27 | *An improved upper bound ... via interlacing families* | no --- weaker upper bound |
+
+None of these addresses the Ramanujan-signing question; the frontier is where
+Xu's §8 leaves it.  Several of them still phrase the Bilu--Linial conjecture as
+open, which reflects preprint lag rather than disagreement with Xu.
 
 ## 2. What is standard background used here
 
