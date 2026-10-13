@@ -13,12 +13,23 @@ orders are (m, k, l).
 """
 from __future__ import annotations
 
+
 import numpy as np
+
 
 RHO3 = 2 * np.sqrt(2)
 
 
-def arm_of_order(n):
+def arm_of_order(n) -> tuple:
+    """Arm of order.
+    
+    Args:
+        n:
+    
+    Returns:
+        tuple: Result of type tuple
+    
+    """
     assert n % 2 == 1 and n >= 5
     if n == 5:
         he = [(0, 1), (0, 2), (0, 3), (1, 2), (1, 3), (2, 3)]
@@ -32,7 +43,16 @@ def arm_of_order(n):
     return n, sorted(E), n - 1
 
 
-def build(orders):
+def build(orders) -> tuple:
+    """Create the object.
+    
+    Args:
+        orders:
+    
+    Returns:
+        tuple: Result of type tuple
+    
+    """
     off = 0
     edges, tips = [], []
     for o in orders:
@@ -53,7 +73,17 @@ def build(orders):
     return n, A, offs, z, tips
 
 
-def uniform_bound(orders, exact_check=False):
+def uniform_bound(orders, exact_check=False) -> tuple:
+    """Uniform bound.
+    
+    Args:
+        orders:
+        exact_check (bool):
+    
+    Returns:
+        tuple: Result of type tuple
+    
+    """
     n, A, offs, z, tips = build(orders)
     cols = []
     for i, o in enumerate(orders):
@@ -77,6 +107,9 @@ def uniform_bound(orders, exact_check=False):
 
 
 def main():
+    """Entry point — parse arguments and run the main computation.
+    
+    """
     print(f"2*sqrt(2) = {RHO3:.12f}\n")
     print("the hard family: arms (5,5,l)")
     for l in (5, 7, 9, 11, 13, 15, 17, 19, 21, 25, 31, 51, 101, 201, 501,
@@ -99,7 +132,8 @@ def main():
                     bad.append((n1, odds[j], odds[k], b))
     print(f"  min bound = {worst:.12f} at {at}")
     print(f"  #triples with bound <= 2sqrt2: {len(bad)}")
-    for x in bad[:20]:
+    for x in bad[:
+        20]:
         print("   ", x)
 
 
