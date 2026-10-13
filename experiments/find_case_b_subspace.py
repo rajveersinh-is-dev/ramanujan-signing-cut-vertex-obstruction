@@ -9,12 +9,23 @@ and the "symmetrised" versions p+ = p_1+p_2, q+ = q_1+q_2.
 """
 from __future__ import annotations
 
+
 import numpy as np
+
 
 RHO3 = 2 * np.sqrt(2)
 
 
-def arm_of_order(n):
+def arm_of_order(n) -> tuple:
+    """Arm of order.
+    
+    Args:
+        n:
+    
+    Returns:
+        tuple: Result of type tuple
+    
+    """
     assert n % 2 == 1 and n >= 5
     if n == 5:
         he = [(0, 1), (0, 2), (0, 3), (1, 2), (1, 3), (2, 3)]
@@ -27,7 +38,16 @@ def arm_of_order(n):
     return n, sorted(E + [(n - 1, 0), (n - 1, 1)]), n - 1
 
 
-def build(orders):
+def build(orders) -> tuple:
+    """Create the object.
+    
+    Args:
+        orders:
+    
+    Returns:
+        tuple: Result of type tuple
+    
+    """
     off, edges, tips = 0, [], []
     for o in orders:
         nn, e, t = arm_of_order(o)
@@ -47,7 +67,20 @@ def build(orders):
     return N, A, offs, z, tips
 
 
-def gens(N, offs, z, tips, orders):
+def gens(N, offs, z, tips, orders) -> tuple:
+    """Gens.
+    
+    Args:
+        N:
+        offs:
+        z:
+        tips:
+        orders:
+    
+    Returns:
+        tuple: Result of type tuple
+    
+    """
     P, Q = [], []
     for i, o in enumerate(orders):
         p = np.zeros(N); p[offs[i]:offs[i] + o] = 1; p[z] = -o
@@ -56,7 +89,17 @@ def gens(N, offs, z, tips, orders):
     return P, Q
 
 
-def top_of_span(A, vectors):
+def top_of_span(A, vectors) -> float:
+    """Top of span.
+    
+    Args:
+        A:
+        vectors:
+    
+    Returns:
+        float: Result of type float
+    
+    """
     V = np.column_stack(vectors)
     assert abs(V.sum(axis=0)).max() < 1e-8
     K = V.T @ V
@@ -67,7 +110,17 @@ def top_of_span(A, vectors):
     return float(np.linalg.eigvalsh((S + S.T) / 2).max())
 
 
-def pencil(A, vectors):
+def pencil(A, vectors) -> tuple:
+    """Pencil.
+    
+    Args:
+        A:
+        vectors:
+    
+    Returns:
+        tuple: Result of type tuple
+    
+    """
     V = np.column_stack(vectors)
     K = V.T @ V
     M = V.T @ (A @ V)
@@ -75,6 +128,9 @@ def pencil(A, vectors):
 
 
 def main():
+    """Entry point — parse arguments and run the main computation.
+    
+    """
     ls = (5, 7, 9, 11, 15, 21, 25, 31, 51, 101, 501, 5001)
     schemes = {
         "p+ , q+":                       lambda P, Q: [P[0] + P[1], Q[0] + Q[1]],
