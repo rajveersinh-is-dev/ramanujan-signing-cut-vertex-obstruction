@@ -9,12 +9,23 @@ The bound depends only on the arm orders (m, k, n_3) via this construction.
 """
 from __future__ import annotations
 
+
 import numpy as np
+
 
 RHO3 = 2 * np.sqrt(2)
 
 
-def arm_of_order(n):
+def arm_of_order(n) -> tuple:
+    """Arm of order.
+    
+    Args:
+        n:
+    
+    Returns:
+        tuple: Result of type tuple
+    
+    """
     assert n % 2 == 1 and n >= 5
     if n == 5:
         he = [(0, 1), (0, 2), (0, 3), (1, 2), (1, 3), (2, 3)]
@@ -28,7 +39,18 @@ def arm_of_order(n):
     return n, sorted(E), n - 1
 
 
-def build(m, k, l):
+def build(m, k, l) -> tuple:
+    """Create the object.
+    
+    Args:
+        m:
+        k:
+        l:
+    
+    Returns:
+        tuple: Result of type tuple
+    
+    """
     off = 0
     edges, tips, orders = [], [], []
     for o in (m, k, l):
@@ -46,7 +68,19 @@ def build(m, k, l):
     return n, A, orders, [0, m, m + k], z
 
 
-def enriched_bound(m, k, l, exact_check=False):
+def enriched_bound(m, k, l, exact_check=False) -> tuple:
+    """Enriched bound.
+    
+    Args:
+        m:
+        k:
+        l:
+        exact_check (bool):
+    
+    Returns:
+        tuple: Result of type tuple
+    
+    """
     n, A, orders, offs, z = build(m, k, l)
     cols = []
     # arm indicators
@@ -76,6 +110,9 @@ def enriched_bound(m, k, l, exact_check=False):
 
 
 def main():
+    """Entry point — parse arguments and run the main computation.
+    
+    """
     print(f"2*sqrt(2) = {RHO3:.12f}\n")
     print(f"{'arms':>20}{'bound':>14}{'exact lam2':>14}   ok?   >2sqrt2?")
     for (m, k, l) in [(5, 5, 5), (5, 5, 7), (5, 5, 9), (5, 5, 21), (5, 5, 101),
