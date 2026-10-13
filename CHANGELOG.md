@@ -22,8 +22,14 @@ All notable changes to this project, in order.
 - **mathematics/definitions.md** — signings, vertex switching, the switching-class
   count $2^{m-n+1}$, $\beta(G)$, the Ramanujan condition, the cut-vertex setup.
 - **mathematics/main_results.md** — Theorem 1, Corollary 1, Theorem 2,
-  Corollary 2, Theorem 3, and the two open conjectures.
+  Corollary 2, Theorem 3, Proposition 4, and the two open conjectures.
 - **mathematics/proofs.md** — complete, audited proofs of all of the above.
+
+### Audit corrections (recorded, not hidden)
+
+- Two false versions of the 2-lift proposition were withdrawn after exhaustive
+  testing found 552 and 32240 counterexamples respectively; the surviving
+  statement is strictly weaker. See `research/proof_attempts.md` §B5.
 
 ### Paper
 

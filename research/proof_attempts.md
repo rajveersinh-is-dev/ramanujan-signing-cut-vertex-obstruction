@@ -119,6 +119,49 @@ was not shipped with this bug.
 A common claim in the literature's heuristic discussion.  Refuted by the $K_4$
 example above ($K_4$: all $|\sigma(v)|=1$, $\|A_\sigma\|=3$).  See A1.
 
+### B5. Two false versions of the 2-lift proposition (Result 4) — **WITHDRAWN, corrected**
+
+I first claimed:
+
+> **P1 (false).** If $G$ is a connected Ramanujan 2-lift of $G_0$, then
+> $\beta(G_0)\le\rho_d$.
+
+and then the "refinement"
+
+> **P2 (false).** The exceptional value $\varepsilon d\in\mathrm{Spec}(A_{\sigma_0}(G_0))$
+> occurs **iff** $G_0$ is non-bipartite.
+
+**Why P1 is false.**  Take $G_0=K_4$ and $\sigma_0\equiv-1$.  Then
+$\mathrm{Spec}(A_{\sigma_0}(K_4))=\{-3,1,1,1\}$, so $\|A_{\sigma_0}(K_4)\|=3>2\sqrt2$.
+The associated lift is the bipartite double cover of $K_4$: it is connected,
+cubic, and has spectrum $\{-3,-1,-1,-1,1,1,1,3\}$, hence it **is** Ramanujan.
+Exhaustive enumeration over the five base graphs used found **552** such
+counterexample lifts.
+
+**Why P2 is false.**  For $G_0=K_4$ only $8$ of the $64$ signings put $\pm3$ in
+$\mathrm{Spec}(A_{\sigma_0}(K_4))$, yet $K_4$ is not bipartite; over the bases
+tested there were **32240** violations.
+
+**Underlying error.**  Both used the claim "a 2-lift of $G_0$ is bipartite iff
+$G_0$ is".  That is false: the bipartite double cover of a *non-bipartite* cubic
+graph is connected, so a lift can be bipartite while its base is not.  The
+correct and tautological statement is $-d\in\mathrm{Spec}(A_{\sigma_0}(G_0))$
+iff $G$ is bipartite.
+
+**Correction (now Proposition 4 in `mathematics/proofs.md`).**  $G_0$ is
+connected; $d$ never occurs in $\mathrm{Spec}(A_{\sigma_0}(G_0))$;
+$\mathrm{Spec}(A_{\sigma_0}(G_0))\subseteq[-\rho_d,\rho_d]\cup\{-d\}$; and $-d$
+cannot occur when $G_0$ is bipartite.  Hence $\beta(G_0)\le\rho_d$ whenever
+$G_0$ is bipartite.  Verified exhaustively: `experiments/verify_lift_proposition.py`
+enumerates all $37952$ signings of $K_4$, $K_{3,3}$, the triangular prism, the
+cube and the Petersen graph ($37240$ connected lifts, all Ramanujan) with
+**0** failures on each of the four checks.
+
+**Lesson.**  The failing step was a *bipartiteness* claim about lifts, i.e. a
+statement about a different invariant than the one under study; it would not
+have been caught by checking the eigenvalues alone.  Writing the exhaustive
+enumerator *before* trusting the proposition is what exposed it.
+
 ---
 
 ## C. Attempts that succeeded

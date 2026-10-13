@@ -55,10 +55,12 @@ The outcome is:
 $\lambda_2(\bdG)>2\sqrt2$. In particular every connected Ramanujan cubic graph is
 2-connected.
 
-We also record, and correct, two errors that arose during the investigation: that
-vertex sums are invariant under vertex switching, and that
-$\max_v|\sgn(v)|$ bounds $\norm{A_{\sgn}(G)}_{\mathrm{op}}$. Neither is true, the
-second is refuted by $K_4$. The conjectures themselves remain open.
+We also record a proposition showing that the voltage signing of the base of a
+Ramanujan 2-lift is Ramanujan unless the base is bipartite, and we record, and
+correct, three errors that arose during the investigation: that vertex sums are
+invariant under vertex switching; that $\max_v|\sgn(v)|$ bounds
+$\norm{A_{\sgn}(G)}_{\mathrm{op}}$ (refuted by $K_4$); and two false formulations
+of the 2-lift proposition. The conjectures themselves remain open.
 \end{abstract}
 
 \section{Introduction}
@@ -286,6 +288,39 @@ connected graph the top eigenspace of $\bdG$ is $\operatorname{span}\{\mathbf 1\
 so the second largest eigenvalue is non-trivial.
 \end{proof}
 
+\section{A remark on 2-lifts}
+
+Let $G$ be a connected Ramanujan $d$-regular graph which is a 2-lift of a
+$d$-regular graph $G_0$ through a signing $\sigma_0$ of $G_0$ (an edge $\{u,v\}$
+with $\sigma_0(\{u,v\})=+1$ lifts to $\{u^0,v^0\},\{u^1,v^1\}$ and with $-1$ to
+$\{u^0,v^1\},\{u^1,v^0\}$). The standard 2-lift identity gives
+\begin{equation}\label{2lift}
+  \mathrm{Spec}\big(A(G)\big)=\mathrm{Spec}\big(A(G_0)\big)\ \sqcup\
+  \mathrm{Spec}\big(A_{\sigma_0}(G_0)\big).
+\end{equation}
+Since $\mathrm{Spec}(A(G_0))\subseteq\mathrm{Spec}(A(G))$ and $G$ is connected,
+the eigenvalue $d$ occurs exactly once in $\mathrm{Spec}(A(G))$; as $G_0$ is
+$d$-regular it occurs at least once in $\mathrm{Spec}(A(G_0))$, hence exactly
+once, so $G_0$ is connected and $d$ is exhausted by the base part. Therefore
+every eigenvalue of $A_{\sigma_0}(G_0)$ is a non-trivial eigenvalue of $A(G)$,
+except possibly $-d$; Ramanujan-ness of $G$ gives
+$\mathrm{Spec}(A_{\sigma_0}(G_0))\subseteq[-\rho_d,\rho_d]\cup\{-d\}$. If $G_0$
+is bipartite, $-d$ lies in the base part with multiplicity one and so does not
+occur in the signed part. \emph{Proposition.} A bipartite base of a Ramanujan
+2-lift therefore satisfies $\beta(G_0)\le\rho_d$.
+
+Two remarks. First, a lift-compatible signing of $G$ induced by any signing
+$\tau$ of $G_0$ has spectrum $\mathrm{Spec}(A(G_0))\sqcup\mathrm{Spec}(A_\tau(G_0))$,
+which contains $d$; so a lift-compatible signing of a $d$-regular graph is
+\emph{never} Ramanujan for $d\ge3$. Second, the condition ``$G_0$ bipartite'' is
+necessary and cannot be dropped: for $G_0=K_4$ and $\sigma_0\equiv-1$ one has
+$\mathrm{Spec}(A_{\sigma_0}(K_4))=\{-3,1,1,1\}$, while the associated lift --- the
+bipartite double cover of $K_4$ --- is connected, cubic and Ramanujan. Exhaustive
+enumeration over all $37952$ signings of $K_4$, $K_{3,3}$, the triangular
+prism, the cube and the Petersen graph gives $37240$ connected lifts, all of
+them Ramanujan, with no violation of the statement above and with $-d$ never
+occurring over a bipartite base.
+
 \section{Computational evidence}
 
 Tables produced by \texttt{experiments/run\_all\_experiments.py}; $\beta(G)$ is
@@ -314,7 +349,7 @@ are evidence, not a proof.
 
 \section{Discussion, limitations, open questions}
 
-\subsection*{Two claims made and withdrawn during this work}
+\subsection*{Three claims made and withdrawn during this work}
 
 \emph{(i) Vertex sums are not switching-invariant.} It is true that
 $A_{\delta\sgn}=DA_{\sgn}D$, hence the spectrum is preserved, but
@@ -331,8 +366,11 @@ true optimum is $\beta(K_4)=\sqrt5$, attained by signings with larger vertex
 sums. Consequently signings coming from perfect matchings --- the natural first
 idea --- give no bound at all.
 
-Both errors were caught by an explicit cross-check against concrete graphs and
-are documented in the repository's research log.
+\emph{(iii) The first two formulations of the 2-lift proposition were false.}
+See the remark above; the exhaustive enumeration is what exposed them.
+
+All three errors were caught by explicit cross-checks against concrete graphs
+and are documented in the accompanying research log.
 
 \subsection*{Limitations}
 

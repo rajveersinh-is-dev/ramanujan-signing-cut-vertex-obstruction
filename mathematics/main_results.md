@@ -100,6 +100,42 @@ vertex whose two smallest arms have order $5$.
 
 ---
 
+## Result 4 (PROVED HERE, after correction): the 2-lift picture
+
+**Proposition 4.** Let $G$ be a finite connected simple $d$-regular Ramanujan
+graph which is a 2-lift of a $d$-regular graph $G_0$ via the signing $\sigma_0$ of
+$G_0$ that defines the lift. Then $G_0$ is connected,
+$$
+d\notin\mathrm{Spec}\big(A_{\sigma_0}(G_0)\big),\qquad
+\mathrm{Spec}\big(A_{\sigma_0}(G_0)\big)\subseteq[-\rho_d,\rho_d]\cup\{-d\},
+$$
+and the exceptional value $-d$ cannot occur when $G_0$ is bipartite.
+Consequently: *if $G_0$ is bipartite, then $\beta(G_0)\le\rho_d$.*
+
+**Proof.** See `proofs.md`, Proposition 4, using the 2-lift spectral identity
+$\mathrm{Spec}(A(G))=\mathrm{Spec}(A(G_0))\sqcup\mathrm{Spec}(A_{\sigma_0}(G_0))$.
+
+**The point of interest.**  For a 2-lift, a lift-compatible signing of $G$
+**can never** be Ramanujan, because the base spectrum always contains $d$.
+What Proposition 4 identifies is the only obstruction on the quotient side: the
+voltage signing is automatically Ramanujan unless its spectrum contains $-d$,
+which happens precisely when the lift $G$ happens to be bipartite.  This is
+verified exhaustively for the bases $K_4$, $K_{3,3}$, the triangular prism, the
+cube and the Petersen graph over *all* $37952$ signings
+(`experiments/verify_lift_proposition.py`): $0$ failures of the 2-lift identity,
+$0$ violations of the inclusion, and $-d$ never occurs for the bipartite bases
+$K_{3,3}$ and the cube.
+
+**Note on history of this statement.** Two earlier, stronger versions were
+**false** and were withdrawn after exhaustive testing found counterexamples:
+(i) "$\beta(G_0)\le\rho_d$ for every base graph" (552 counterexample lifts), and
+(ii) "the exceptional value occurs iff $G_0$ is non-bipartite" ($32240$
+counterexamples: for $K_4$ most signings have no exceptional value even though
+$K_4$ is non-bipartite).  The underlying mistake in both was a false claim about
+when a 2-lift is bipartite.  See `research/proof_attempts.md` §B6.
+
+---
+
 ## The open problem (not solved here)
 
 **Conjecture R (Xu, 2026; open).** *Ramanujan signing.* If $G$ is a finite

@@ -217,6 +217,88 @@ to have modulus at most $\rho_d$.  That fails. $\square$
 
 ---
 
+## Proposition 4 (2-lifts)
+
+*Let $G$ be a finite connected simple $d$-regular Ramanujan graph which is a
+2-lift of a $d$-regular graph $G_0$ via the signing $\sigma_0$. Then $G_0$ is
+connected, $d\notin\mathrm{Spec}(A_{\sigma_0}(G_0))$,
+$\mathrm{Spec}(A_{\sigma_0}(G_0))\subseteq[-\rho_d,\rho_d]\cup\{-d\}$, and $-d$
+cannot occur if $G_0$ is bipartite. Hence $\beta(G_0)\le\rho_d$ whenever $G_0$
+is bipartite.*
+
+**Setup.** A 2-lift of $G_0$ has $V(G)=V(G_0)\times\{0,1\}$ and is determined by
+a signing $\sigma_0$ of $G_0$: an edge $\{u,v\}$ with $\sigma_0(\{u,v\})=+1$
+lifts to $\{u^0,v^0\},\{u^1,v^1\}$ and with $\sigma_0(\{u,v\})=-1$ to
+$\{u^0,v^1\},\{u^1,v^0\}$.
+
+**The 2-lift spectral identity.** For the uniform signing of the lifted graph,
+$$
+\mathrm{Spec}\big(A(G)\big)=\mathrm{Spec}\big(A(G_0)\big)\ \sqcup\
+\mathrm{Spec}\big(A_{\sigma_0}(G_0)\big).
+\tag{L}
+$$
+(Standard 2-lift identity of Bilu--Linial: decomposing
+$\mathbb R^{V(G_0)}\otimes\mathbb R^2$ into the diagonal and anti-diagonal
+subspaces, on which $A(G)$ acts as $A(G_0)$ resp. $A_{\sigma_0}(G_0)$. Cited,
+not re-proved.)
+
+**Step 1: $G_0$ is connected.** By (L), $\mathrm{Spec}(A(G_0))\subseteq
+\mathrm{Spec}(A(G))$ as multisets.  The eigenvalue $d$ occurs exactly once in
+$\mathrm{Spec}(A(G))$ because $G$ is connected, and at least once in
+$\mathrm{Spec}(A(G_0))$ because $G_0$ is $d$-regular.  Hence it occurs exactly
+once in $\mathrm{Spec}(A(G_0))$, so the components of $G_0$ number exactly one:
+$G_0$ is connected.
+
+**Step 2: $d$ is in the base part, not the signed part.**  By Step 1 the base
+part contains $d$ with multiplicity one, which is the full multiplicity of $d$
+in $\mathrm{Spec}(A(G))$.  By (L) the remaining eigenvalues of $A(G)$ — which
+are exactly $\mathrm{Spec}(A_{\sigma_0}(G_0))$ — therefore avoid $d$.
+
+**Step 3: the only possible exception is $-d$.**  By Step 1 the eigenvalue $-d$
+belongs to $\mathrm{Spec}(A(G))$ if and only if $G$ is bipartite, and then with
+multiplicity one.  If $G_0$ is bipartite then $-d\in\mathrm{Spec}(A(G_0))$
+(multiplicity one) and, by (L), $-d$ is exhausted by the base part, so it is
+absent from the signed part.  If $G_0$ is not bipartite then $-d\notin
+\mathrm{Spec}(A(G_0))$, so whenever $-d\in\mathrm{Spec}(A(G))$ (i.e. whenever
+$G$ is bipartite) it must lie in the signed part; and conversely if $-d$ is in
+the signed part then $G$ is bipartite.
+
+**Conclusion.** Every eigenvalue of $A_{\sigma_0}(G_0)$ is a non-trivial
+eigenvalue of $A(G)$, except possibly $-d$; by Ramanujan-ness of $G$ each such
+non-trivial eigenvalue lies in $[-\rho_d,\rho_d]$.  By Step 3 the value $d$
+never occurs, and if $G_0$ is bipartite then $-d$ does not occur either. $\square$
+
+**Remark.** A lift-compatible signing $\tilde\tau$ of $G$ satisfies
+$\mathrm{Spec}(A_{\tilde\tau}(G))=\mathrm{Spec}(A(G_0))\sqcup
+\mathrm{Spec}(A_\tau(G_0))$, which contains the eigenvalue $d$.  So a
+lift-compatible signing is *never* Ramanujan for $d\ge3$: the 2-lift structure
+alone can never produce a Ramanujan signing of $G$, only of its base.
+
+**Correction note — two earlier versions of this proposition were false.**
+
+* *Version 1* claimed $\beta(G_0)\le\rho_d$ for every base graph.  Counterexample:
+  $G_0=K_4$, $\sigma_0\equiv-1$.  Then
+  $\mathrm{Spec}(A_{\sigma_0}(K_4))=\{-3,1,1,1\}$ (so $\|A_{\sigma_0}(K_4)\|=3>
+  2\sqrt2$), while the associated lift — the bipartite double cover of $K_4$ —
+  is connected, cubic, and has spectrum $\{-3,-1,-1,-1,1,1,1,3\}$, hence **is**
+  Ramanujan.  Exhaustive search found 552 such lifts.
+* *Version 2* claimed the exceptional value occurs **iff** $G_0$ is non-bipartite.
+  False: for $G_0=K_4$ only $8$ of the $64$ signings give $\pm3$ in
+  $\mathrm{Spec}(A_{\sigma_0}(G_0))$, yet $K_4$ is not bipartite;
+  $32240$ counterexamples among the bases tested.
+* *Underlying error in both*: the claim that a 2-lift of $G_0$ is bipartite iff
+  $G_0$ is.  The bipartite double cover of a non-bipartite cubic graph is
+  connected, so a lift can be bipartite while its base is not.  The correct
+  statement is the tautology $-d\in\mathrm{Spec}(A_{\sigma_0}(G_0))\iff G$ is
+  bipartite, which is what Step 3 uses.
+* *How detected*: `experiments/verify_lift_proposition.py` enumerates **all**
+  signings of $K_4$, $K_{3,3}$, the triangular prism, the cube and the Petersen
+  graph ($37952$ signings, $37240$ connected lifts, all of them Ramanujan as
+  these graphs are) and checks the claimed conclusions.  Both false versions
+  were produced failures.
+
+---
+
 ## Proof-audit notes
 
 * The only place where a *finite* computation enters the proof is the identity
@@ -230,3 +312,18 @@ to have modulus at most $\rho_d$.  That fails. $\square$
   because $n_1\le n_2\le n_3$ and $n_1\ge5$.
 * Degenerate cases: $z$ must exist as a cut vertex; a graph with no cut vertex
   is outside the scope of Theorems 1–2 and is not needed for Corollary 2.
+* **Independent randomised check.**  `experiments/verify_theorem2_random.py`
+  builds 4000 random three-arm cubic graphs (random cubic arms, arm orders in
+  $5..11$, seed 20261013), computes the true $\lambda_2$, and checks both that
+  none is Ramanujan and that the *provable* bound used in the proof never
+  exceeds the true $\lambda_2$.  Result: 0 Ramanujan graphs, 0 bound violations,
+  smallest margin $\lambda_2-2\sqrt2=0.027345$, attained at arm orders
+  $(5,5,5)$ — which is the case the proof treats separately, as predicted.
+  This is a consistency check, not part of the proof.
+* **Weakest step.**  The step most open to challenge is the arm-adjacency
+  formula (*) in the Theorem 3 derivation; it is proved combinatorially in the
+  text and independently re-derived symbolically in
+  `experiments/case_b_symbolic.py`, then checked against matrices built from
+  explicit coordinate vectors on concrete graphs.  If (*) were wrong, the
+  resulting bound would (as happened three times during this work) exceed $3$,
+  which is impossible for a cubic graph — so the check is sharp.

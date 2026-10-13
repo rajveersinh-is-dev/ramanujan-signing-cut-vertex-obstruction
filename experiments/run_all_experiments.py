@@ -89,7 +89,7 @@ CASES = [
     ("pentagonal prism", prism(5)),
     ("hexagonal prism", prism(6)),
     ("Heawood", heawood()),
-    ("Möbius--Kantor GP(8,3)", mobius_kantor()),
+    ("Mobius--Kantor GP(8,3)", mobius_kantor()),
 ]
 
 
