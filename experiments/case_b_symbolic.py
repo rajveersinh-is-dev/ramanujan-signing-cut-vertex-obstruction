@@ -27,12 +27,25 @@ import importlib.util
 import numpy as np
 import sympy as sp
 
+
+
 l = sp.symbols('l', positive=True)
 S2 = sp.sqrt(2)
 TAU = 2 * S2
 
 
-def bilinear(g1, g2, sizes):
+def bilinear(g1, g2, sizes) -> tuple:
+    """Bilinear.
+    
+    Args:
+        g1:
+        g2:
+        sizes:
+    
+    Returns:
+        tuple: Result of type tuple
+    
+    """
     (z1, a1), (z2, a2) = g1, g2
     d1 = {i: (c, dd) for i, c, dd in a1}
     d2 = {i: (c, dd) for i, c, dd in a2}
@@ -49,7 +62,18 @@ def bilinear(g1, g2, sizes):
     return sp.expand(gram), sp.expand(adj)
 
 
-def pencil(n1, n2, n3):
+def pencil(n1, n2, n3) -> tuple:
+    """Pencil.
+    
+    Args:
+        n1:
+        n2:
+        n3:
+    
+    Returns:
+        tuple: Result of type tuple
+    
+    """
     sizes = {1: n1, 2: n2, 3: n3}
     gens = [
         (sp.Integer(-(n1 + n2)),
@@ -69,7 +93,18 @@ def pencil(n1, n2, n3):
     return M, K
 
 
-def numeric_bound(M, K, lval):
+def numeric_bound(M, K, lval) -> float:
+    """Numeric bound.
+    
+    Args:
+        M:
+        K:
+        lval:
+    
+    Returns:
+        float: Result of type float
+    
+    """
     Mn = np.array(sp.Matrix(M).subs(l, lval).evalf(), dtype=float)
     Kn = np.array(sp.Matrix(K).subs(l, lval).evalf(), dtype=float)
     ev, U = np.linalg.eigh(Kn)
@@ -79,6 +114,9 @@ def numeric_bound(M, K, lval):
 
 
 def main():
+    """Entry point — parse arguments and run the main computation.
+    
+    """
     M, K = pencil(5, 5, l)
     print("M ="); print(M)
     print("\nK ="); print(K)

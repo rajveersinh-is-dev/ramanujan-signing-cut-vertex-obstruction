@@ -16,12 +16,14 @@ the concrete cubic graph.
 """
 from __future__ import annotations
 
+
 import numpy as np
+
 
 RHO3 = 2 * np.sqrt(2)
 
 
-def arm_of_order(n):
+def arm_of_order(n) -> tuple:
     """Concrete arm of odd order n: cubic except one degree-2 vertex (the tip)."""
     assert n % 2 == 1 and n >= 5
     if n == 5:
@@ -36,7 +38,7 @@ def arm_of_order(n):
     return n, sorted(E), n - 1
 
 
-def sample_graph(m, k, l=5):
+def sample_graph(m, k, l=5) -> tuple:
     """Cubic graph: three arms of orders m, k, l joined at a centre z."""
     off = 0
     edges, tips = [], []
@@ -50,7 +52,7 @@ def sample_graph(m, k, l=5):
     return z + 1, sorted(edges)
 
 
-def test_subspace(m, k, l=5):
+def test_subspace(m, k, l=5) -> tuple:
     """Basis (list of n-vectors) of the 4-dimensional test subspace W."""
     n, edges = sample_graph(m, k, l)
     A = np.zeros((n, n))
@@ -71,7 +73,18 @@ def test_subspace(m, k, l=5):
     return n, edges, A, V
 
 
-def subspace_bound(m, k, l=5):
+def subspace_bound(m, k, l=5) -> float:
+    """Subspace bound.
+    
+    Args:
+        m:
+        k:
+        l (int):
+    
+    Returns:
+        float: Result of type float
+    
+    """
     n, edges, A, V = test_subspace(m, k, l)
     K = V.T @ V
     M = V.T @ (A @ V)
@@ -87,6 +100,9 @@ def bottleneck(m, k):
 
 
 def main():
+    """Entry point — parse arguments and run the main computation.
+    
+    """
     print("2*sqrt(2) =", f"{RHO3:.12f}")
     print("\ncross-check: subspace bound must not exceed the exact lambda_2 of "
           "a concrete graph with the same arm orders")

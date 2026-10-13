@@ -19,12 +19,14 @@ cubic graph, and cross-checked against exact spectra.
 """
 from __future__ import annotations
 
+
 import numpy as np
+
 
 RHO3 = 2 * np.sqrt(2)
 
 
-def arm_of_order(n):
+def arm_of_order(n) -> tuple:
     """Concrete arm of odd order n: cubic except at the tip (degree 2)."""
     assert n % 2 == 1 and n >= 5
     if n == 5:
@@ -38,7 +40,16 @@ def arm_of_order(n):
     return n, sorted(E + [(n - 1, 0), (n - 1, 1)]), n - 1
 
 
-def build(orders):
+def build(orders) -> tuple:
+    """Create the object.
+    
+    Args:
+        orders:
+    
+    Returns:
+        tuple: Result of type tuple
+    
+    """
     off, edges, tips = 0, [], []
     for o in orders:
         nn, e, t = arm_of_order(o)
@@ -59,6 +70,19 @@ def build(orders):
 
 
 def p_vec(N, offs, z, i, n):
+    """P vec.
+    
+    Args:
+        N:
+        offs:
+        z:
+        i:
+        n:
+    
+    Returns:
+        The computed result
+    
+    """
     v = np.zeros(N)
     v[offs[i]:offs[i] + n] = 1
     v[z] = -n
@@ -66,13 +90,37 @@ def p_vec(N, offs, z, i, n):
 
 
 def q_vec(N, offs, z, i, n, tip):
+    """Q vec.
+    
+    Args:
+        N:
+        offs:
+        z:
+        i:
+        n:
+        tip:
+    
+    Returns:
+        The computed result
+    
+    """
     v = np.zeros(N)
     v[tip] += 1
     v[offs[i]:offs[i] + n] -= 1.0 / n
     return v
 
 
-def top_of_span(A, vectors):
+def top_of_span(A, vectors) -> float:
+    """Top of span.
+    
+    Args:
+        A:
+        vectors:
+    
+    Returns:
+        float: Result of type float
+    
+    """
     V = np.column_stack(vectors)
     assert abs(V.sum(axis=0)).max() < 1e-8
     K = V.T @ V
@@ -93,7 +141,7 @@ def case_b_bound(n1, n2):
     return top_of_span(A, [u, v])
 
 
-def case_a_bound(n2, n3):
+def case_a_bound(n2, n3) -> float:
     """Bound from the two-arm indicator test on arms 2 and 3."""
     N, A, offs, z, tips = build((5, n2, n3))
     x = (p_vec(N, offs, z, 1, n2) + (n2 * 0) * 0)  # placeholder
@@ -105,10 +153,22 @@ def case_a_bound(n2, n3):
 
 
 def psi(r):
+    """Psi.
+    
+    Args:
+        r:
+    
+    Returns:
+        The computed result
+    
+    """
     return (r + 1.0 / r) / (1.0 + r)
 
 
 def main():
+    """Entry point — parse arguments and run the main computation.
+    
+    """
     print(f"2*sqrt(2) = {RHO3:.12f}")
     print(f"20/7      = {20/7:.12f}")
 
