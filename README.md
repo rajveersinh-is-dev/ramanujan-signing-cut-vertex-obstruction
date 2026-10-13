@@ -61,6 +61,15 @@ All statements are proved in [`mathematics/proofs.md`](mathematics/proofs.md)
 > **Corollary 2.** *PROVED HERE.* Every connected Ramanujan cubic graph is
 > 2-connected.
 
+> **Proposition 4 (2-lifts).** *PROVED HERE, after one correction.* If a
+> connected Ramanujan $d$-regular graph $G$ is a 2-lift of a $d$-regular graph
+> $G_0$ via the signing $\sigma_0$, then $G_0$ is connected,
+> $\mathrm{Spec}(A_{\sigma_0}(G_0))\subseteq[-\rho_d,\rho_d]\cup\{-d\}$, and the
+> exceptional value $-d$ cannot occur when $G_0$ is bipartite. In particular a
+> *lift-compatible* signing of a 2-lift is never Ramanujan (the base spectrum
+> always contains $d$), while a bipartite base always does have a Ramanujan
+> signing.
+
 ### Why this is worth knowing
 
 Xu's counterexample to Bilu--Linial is built around a cut vertex: his core graph
@@ -146,11 +155,18 @@ python experiments/run_all_experiments.py
 
 # the symbolic derivation of M_l, K_l from the three combinatorial identities
 python experiments/case_b_symbolic.py
+
+# independent randomised check of Theorem 2 (4000 random three-arm graphs)
+python experiments/verify_theorem2_random.py
+
+# exhaustive check of Proposition 4 (all 37952 signings of five base graphs)
+python experiments/verify_lift_proposition.py
 ```
 
-Expected: `18/18 tests passed` and the two tables of
-`experiments/run_all_experiments.py`. Runtime of the whole set: well under one
-minute.
+Expected: `18/18 tests passed`, the two tables of
+`experiments/run_all_experiments.py`, `cross-validation: PASSED`,
+`RESULT: PASS` from both verification scripts. Total runtime: under two
+minutes.
 
 ---
 
@@ -172,8 +188,12 @@ cube C_4 x K_2               8    1.000000       True    1.732051    1.732051   
 pentagonal prism            10    1.618034       True    2.236068    2.236068      3      3
 hexagonal prism             12    2.000000       True    2.000000    2.000000      3      3
 Heawood                     14    1.414214       True    2.449490    2.449490      3      5
-Möbius--Kantor GP(8,3)      16    1.732051       True    2.414214    2.414214      3      5
+Mobius--Kantor GP(8,3)       16    1.732051       True    2.414214    2.414214      3      5
 ```
+
+(`kappa` is the vertex connectivity; `lmax_min` is
+$\min_\sigma\lambda_{\max}(A_\sigma)$, which MSS bounds by $2\sqrt{d-1}=2.828427$
+— satisfied with room to spare in every row.)
 
 Scope and limitations:
 

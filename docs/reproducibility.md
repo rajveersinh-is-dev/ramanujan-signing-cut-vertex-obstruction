@@ -22,9 +22,11 @@ python experiments/run_all_experiments.py # Tables 1 and 2 of the paper
 python experiments/case_b_symbolic.py      # symbolic derivation + cross-validation
 python experiments/case_b_witness.py      # the (P,R) determinant and the l = 5 witness
 python experiments/cut_vertex_two_case.py # Case A / Case B sanity checks
+python experiments/verify_theorem2_random.py    # 4000 random three-arm graphs
+python experiments/verify_lift_proposition.py   # all 37952 signings of 5 base graphs
 ```
 
-Total runtime: under one minute on the machine above.
+Total runtime: under two minutes on the machine above.
 
 ## Expected output
 
@@ -69,6 +71,7 @@ cross-validation: PASSED
   $-4(\ell+11)((14\sqrt2-19)\ell-5\sqrt2+2)$, which is exact algebra;
 * Theorem 3, sub-case $\ell=5$: the exact inequality
   $19584^2-2\cdot13740^2=6\,017\,856>0$.
+* Proposition 4, from the 2-lift spectral identity (cited, standard).
 
 **Machine-checked finite verification** (these are *not* the proof, but they
 guard it):
@@ -81,7 +84,18 @@ guard it):
   the smallest margin is $2.285\times10^{-2}$ at $\ell=5$, far above
   double-precision error);
 * the determinant sign for every odd $\ell\in[7,399]$;
-* $\beta(G)$ for the eight graphs of Table 1, exact over switching classes.
+* $\beta(G)$ for the eight graphs of Table 1, exact over switching classes;
+* **Theorem 2**, on 4000 random three-arm cubic graphs (random cubic arms, arm
+  orders $5\ldots11$, seed 20261013): 0 Ramanujan graphs, 0 violations of the
+  proof's own bound, smallest margin $\lambda_2-2\sqrt2=0.0273$ at arm orders
+  $(5,5,5)$ — the case the proof treats separately;
+* **Proposition 4**, on all $37952$ signings of $K_4$, $K_{3,3}$, the
+  triangular prism, the cube and the Petersen graph ($37240$ connected lifts,
+  all Ramanujan): 0 failures of the 2-lift spectral identity, 0 failures of the
+  spectral inclusion, 0 cases of an exceptional value over a bipartite base,
+  and 0 occurrences of $+3$ in a signed base spectrum. This test is what
+  exposed two false earlier versions of the proposition
+  (`research/proof_attempts.md` §B5).
 
 ## Determinism
 

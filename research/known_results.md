@@ -10,6 +10,7 @@
 | Theorem 2 | Every connected cubic graph with a cut vertex satisfies $\lambda_2(A(G))>2\sqrt2$, hence is not Ramanujan | `mathematics/proofs.md` |
 | Corollary 2 | Every connected Ramanujan cubic graph is 2-connected | `mathematics/proofs.md` |
 | Theorem 3 | For arm orders $(5,5,\ell)$, the 4-dimensional space $\operatorname{span}\{p_1+p_2,q_1+q_2,p_3,q_3\}$ yields $\lambda_2\ge\lambda^*(\ell)>2\sqrt2$ for all odd $\ell\ge5$; explicit pencil given | `mathematics/proofs.md` |
+| Proposition 4 | If a connected Ramanujan $d$-regular graph $G$ is a 2-lift of a $d$-regular graph $G_0$ via $\sigma_0$, then $G_0$ is connected, $\mathrm{Spec}(A_{\sigma_0}(G_0))\subseteq[-\rho_d,\rho_d]\cup\{-d\}$, and $-d$ cannot occur when $G_0$ is bipartite | `mathematics/proofs.md` |
 
 ## ESTABLISHED IN PRIOR WORK (verified citations)
 
@@ -32,7 +33,18 @@
 | $\lambda^*(l)>2\sqrt2$ for all odd $\ell\le199$ | odd $\ell\in[5,199]$ | `tests/test_project.py` |
 | The $(P,R)$ principal minor of $M_\ell-2\sqrt2K_\ell$ is negative for all odd $\ell\ge7$, $\ell<400$ | odd $\ell\in[7,399]$ | `tests/test_project.py` |
 | No three-arm graph with arm orders in the tested list is Ramanujan | 10 arm-order triples, exact eigenvalues | `tests/test_project.py` |
-| Counts of connected cubic graphs generated match A002851 | $n=4,6,8,10$ | `experiments/_gen_check.py` |
+| Counts of connected cubic graphs generated match A002851 | $n=4,6,8,10$ | `experiments/_gen_check.py` (deleted; see `research/proof_attempts.md` B3) |
+| Theorem 2 holds on random three-arm cubic graphs | 4000 random graphs, arm orders $5..11$, seed 20261013; 0 Ramanujan, smallest margin $\lambda_2-2\sqrt2=0.0273$ | `experiments/verify_theorem2_random.py` |
+| Proposition 4 holds | all $37952$ signings of $K_4$, $K_{3,3}$, the triangular prism, the cube, the Petersen graph | `experiments/verify_lift_proposition.py` |
+
+## WITHDRAWN CLAIMS (recorded so they are not mistaken for results)
+
+| Claim | Why withdrawn |
+|---|---|
+| "Vertex sums are invariant under vertex switching" | false; see `research/proof_attempts.md` B1 |
+| "$\max_v\|\sigma(v)\|$ bounds $\|A_\sigma\|$" | false: $K_4$ with a perfect-matching signing | `research/proof_attempts.md` A1/B4 |
+| "$\beta(G_0)\le\rho_d$ for every base of a Ramanujan 2-lift" | false: 552 counterexample lifts | `research/proof_attempts.md` B5 |
+| "the exceptional signed eigenvalue occurs iff the base is non-bipartite" | false: 32240 counterexamples | `research/proof_attempts.md` B5 |
 
 ## CONJECTURED (not proved here)
 
