@@ -19,6 +19,12 @@ S2 = sp.sqrt(2)
 
 
 def load():
+    """Load and parse input data.
+    
+    Returns:
+        The computed result
+    
+    """
     spec = importlib.util.spec_from_file_location(
         "cbs", "experiments/case_b_symbolic.py")
     m = importlib.util.module_from_spec(spec)
@@ -48,7 +54,7 @@ def find_witness(M, K, lval, grid=None):
     return best
 
 
-def exact_check(M, K, lval, a):
+def exact_check(M, K, lval, a) -> tuple:
     """Verify a'Ma - 2 sqrt2 a'Ka > 0 exactly, with rational a."""
     av = sp.Matrix([sp.Rational(x.numerator, x.denominator) for x in a])
     Mv = sp.Matrix(M).subs(l, lval)
@@ -59,6 +65,9 @@ def exact_check(M, K, lval, a):
 
 
 def main():
+    """Entry point — parse arguments and run the main computation.
+    
+    """
     m = load()
     M, K = m.pencil(5, 5, l)
     D = sp.expand(M - 2 * S2 * K)
