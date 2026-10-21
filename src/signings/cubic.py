@@ -42,13 +42,8 @@ def _canon(n: int, adj: Sequence[Set[int]]) -> bytes:
             if v > u:
                 g.add_edge(u, v)
     perm = g.canonical_permutation()
-    M = np.zeros((n, n), dtype=np.uint8)
-    for u in range(n):
-        for v in adj[u]:
-            if u < v:
-                M[perm[u], perm[v]] = 1
-                M[perm[v], perm[u]] = 1
-    return M.tobytes()
+    g_canon = g.permute_vertices(perm)
+    return np.array(g_canon.get_adjacency().data, dtype=np.uint8).tobytes()
 
 
 def _edges(adj: Sequence[Set[int]]) -> List[Edge]:

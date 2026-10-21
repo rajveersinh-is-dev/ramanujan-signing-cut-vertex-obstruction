@@ -107,12 +107,14 @@ is proved in `mathematics/proofs.md` (item 2 of the derivation), and
 `experiments/case_b_symbolic.py` now derives the pencil from the three
 identities and is checked against explicit vectors for $\ell=5,7,11,21,101,1001$.
 
-### B3. `igraph.canonical_permutation` used as an isomorphism test — **FALSE, withdrawn**
+### B3. `igraph.canonical_permutation` used as an isomorphism test — **FALSE, CORRECTED**
 
 Verified experimentally: two isomorphic labelings of $K_{3,3}$ get canonical
 permutations `[5,4,2,1,3,0]` and `[5,4,1,3,2,0]`.  The function returns *a*
-permutation into canonical position, not a canonical form.  The cubic generator
-was not shipped with this bug.
+permutation into canonical position, not a canonical form. This caused the cubic
+generator to produce duplicates. It is now corrected by actually permuting the
+graph using `g.permute_vertices(perm)` before exporting its adjacency matrix as
+the canonical byte string.
 
 ### B4. "$\max_v|\sigma(v)|$ bounds $\|A_\sigma\|$" — **FALSE, withdrawn**
 
