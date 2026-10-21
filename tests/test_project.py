@@ -70,6 +70,14 @@ def test_signing_classes_count():
         assert nclasses == 2 ** (len(e) - n + 1), (n, nclasses)
 
 
+def test_cubic_generator_counts():
+    """Verify generated graphs count matches A002851 for small n."""
+    from signings.cubic import generate_cubic, known_counts
+    counts = known_counts()
+    for n in (4, 6, 8, 10):
+        graphs = generate_cubic(n)
+        assert len(graphs) == counts[n]
+
 def test_switching_invariance():
     """Vertex switching preserves the spectrum of A_sigma.
 

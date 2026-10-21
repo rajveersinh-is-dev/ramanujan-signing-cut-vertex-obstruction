@@ -217,11 +217,6 @@ Scope and limitations:
   bridges that are not cut vertices of order 2, or bottlenecks that are
   "large but finite".
 * The $d\ge4$ case of Conjecture R is untouched.
-* The cubic graph generator in `src/signings/cubic.py` produces duplicates
-  (its isomorphism filter uses `igraph.canonical_permutation()`, which is not a
-  canonical form — see `research/proof_attempts.md` B3). It is validated for
-  $n=4,6,8,10$ only up to the *number of distinct generated graphs*, and is not
-  used in any theorem or table here.
 
 ## Remaining open questions
 
