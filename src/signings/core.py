@@ -144,7 +144,7 @@ def girth(n: int, edges: Sequence[Edge]) -> int:
                     par[y] = x
                     heapq.heappush(pq, (nd, y))
                 else:
-                    best = min(best, d + nd)
+                    best = min(best, d + dist[y] + 1)
     return int(best) if best != INF else -1
 
 
