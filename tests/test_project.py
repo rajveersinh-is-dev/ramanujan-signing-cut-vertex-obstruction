@@ -135,7 +135,7 @@ def test_ramanujan_flags():
 
 def test_girth():
     n, e = prism(4)
-    assert girth(n, e) == 3
+    assert girth(n, e) == 4
     n, e = three_arm_graph((5, 5, 5))
     assert girth(n, e) == 3
 
