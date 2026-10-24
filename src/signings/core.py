@@ -160,7 +160,15 @@ def vertex_connectivity(n: int, edges: Sequence[Edge]) -> int:
         G.add_edges_from(edges)
         return int(nx.node_connectivity(G))
     except Exception:  # pragma: no cover - fallback
-        return min(degrees(n, edges))
+        if not is_connected(n, edges):
+            return 0
+        best = n - 1
+        edge_set = set((min(x, y), max(x, y)) for x, y in edges)
+        for u in range(n):
+            for v in range(u + 1, n):
+                if (u, v) not in edge_set:
+                    best = min(best, _min_separating_set(n, edges, u, v))
+        return best
 
 
 def _min_separating_set(n: int, edges: Sequence[Edge], u: int, v: int) -> int:

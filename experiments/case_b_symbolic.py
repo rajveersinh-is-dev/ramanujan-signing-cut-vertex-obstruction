@@ -5,7 +5,7 @@ degree 3 except the tip t_i, which has degree 2 and is joined to z; hence t_i ha
 exactly two neighbours inside C_i.
 
 Represent a vector by (z-value, [(arm, c, d), ...]) meaning: value c on
-C_i \ {t_i}, value c + d at t_i.  Then
+C_i \\ {t_i}, value c + d at t_i.  Then
 
   (1)  <x, y> |_C_i = (n_i - 1) c_1 c_2 + (c_1+d_1)(c_2+d_2)
 
